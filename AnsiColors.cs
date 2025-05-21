@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace estrutura_dados
+﻿namespace estrutura_dados
 {
     public static class AnsiColors
     {
         // Reset
         public const string Reset = "\u001b[0m";
+
         // Text colors
         public const string Black = "\u001b[30m";
         public const string Red = "\u001b[31m";
@@ -40,6 +35,22 @@ namespace estrutura_dados
             output += text + Reset;
             Console.Write(output);
         }
-    }
 
+        public static void PrintMenu(List<string> options, string header = null)
+        {
+            if (header != null)
+            {
+                WriteLine($"======= {header} =======", Cyan);
+            }
+
+            WriteLine("0. Sair.", Red);
+
+            for (int i = 0; i < options.Count; i++)
+            {
+                Console.WriteLine($"{Yellow}{i + 1}.{Reset} {Green}{options[i]}{Reset}");
+            }
+
+            Write("Opção: ", Yellow);
+        }
+    }
 }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using estrutura_dados.Array;
+﻿using estrutura_dados.Implementations;
 
 namespace estrutura_dados.Visualizations
 {
-    public class ArrayVisualization
+    public static class ArrayVisualization
     {
-        public void Visualize()
+        public static void Visualize()
         {
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE ARRAY =======", AnsiColors.Cyan);
@@ -26,17 +21,17 @@ namespace estrutura_dados.Visualizations
 
             do
             {
-                AnsiColors.WriteLine("======= MENU DO ARRAY =======", AnsiColors.Cyan);
-                Console.WriteLine($"{AnsiColors.Red}0. Sair.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}1.{AnsiColors.Reset + AnsiColors.Green} Adicionar elemento.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}2.{AnsiColors.Reset + AnsiColors.Green} Remover elemento{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}3.{AnsiColors.Reset + AnsiColors.Green} Obter elemento por índice.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}4.{AnsiColors.Reset + AnsiColors.Green} Verificar se está vazio.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}5.{AnsiColors.Reset + AnsiColors.Green} Obter tamanho.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}6.{AnsiColors.Reset + AnsiColors.Green} Obter capacidade.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}7.{AnsiColors.Reset + AnsiColors.Green} Limpar array.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}8.{AnsiColors.Reset + AnsiColors.Green} Imprimir array.{AnsiColors.Reset}");
-                Console.Write("Opção: ", AnsiColors.Yellow);
+                AnsiColors.PrintMenu(
+                [
+                    "Adicionar elemento.",
+                    "Remover elemento.",
+                    "Obter elemento por índice.",
+                    "Verificar se está vazio.",
+                    "Obter tamanho.",
+                    "Obter capacidade.",
+                    "Limpar array.",
+                    "Imprimir array."
+                ], "MENU DO ARRAY");
 
                 if (!int.TryParse(Console.ReadLine(), out option))
                 {
@@ -48,7 +43,6 @@ namespace estrutura_dados.Visualizations
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     switch (option)
                     {
                         case 1:
@@ -74,7 +68,8 @@ namespace estrutura_dados.Visualizations
 
                         case 4:
                             bool isEmpty = array.IsEmpty();
-                            AnsiColors.WriteLine(isEmpty ? "O array está vazio." : "O array NÃO está vazio.", AnsiColors.White);
+                            AnsiColors.WriteLine(isEmpty ? "O array está vazio." : "O array NÃO está vazio.",
+                                AnsiColors.White);
                             break;
 
                         case 5:
@@ -108,9 +103,7 @@ namespace estrutura_dados.Visualizations
                 {
                     AnsiColors.WriteLine($"Erro: {ex.Message}", AnsiColors.Red);
                 }
-
             } while (option != 0);
         }
     }
 }
-

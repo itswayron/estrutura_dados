@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using estrutura_dados.Array;
+﻿using estrutura_dados.Implementations;
 
 namespace estrutura_dados.Visualizations
 {
-    public class MatrixVisualization
+    public static class MatrixVisualization
     {
-        public void Visualize()
+        public static void Visualize()
         {
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE MATRIZ =======", AnsiColors.Cyan);
@@ -34,15 +29,14 @@ namespace estrutura_dados.Visualizations
 
             do
             {
-                AnsiColors.WriteLine("======= MENU DA MATRIZ =======", AnsiColors.Cyan);
-                Console.WriteLine($"{AnsiColors.Red}0. Sair.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}1.{AnsiColors.Reset + AnsiColors.Green} Inserir elemento.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}2.{AnsiColors.Reset + AnsiColors.Green} Inserir elemento na posição.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}3.{AnsiColors.Reset + AnsiColors.Green} Obter elemento.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}4.{AnsiColors.Reset + AnsiColors.Green} Limpar matriz.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}5.{AnsiColors.Reset + AnsiColors.Green} Obter número de linhas/colunas.{AnsiColors.Reset}");
-                Console.WriteLine($"{AnsiColors.Yellow}6.{AnsiColors.Reset + AnsiColors.Green} Imprimir matriz.{AnsiColors.Reset}");
-                Console.Write("Opção: ", AnsiColors.Yellow);
+                AnsiColors.PrintMenu([
+                    "Inserir elemento.",
+                    "Inserir elemento na posição.",
+                    "Obter elemento.",
+                    "Limpar matriz.",
+                    "Obter número de linhas/colunas.",
+                    "Imprimir matriz."
+                ], "MENU DA MATRIZ");
 
                 if (!int.TryParse(Console.ReadLine(), out option))
                 {
@@ -91,7 +85,8 @@ namespace estrutura_dados.Visualizations
                             break;
 
                         case 5:
-                            AnsiColors.WriteLine($"Linhas: {matrix.GetRows} | Colunas: {matrix.GetColumns}", AnsiColors.Green);
+                            AnsiColors.WriteLine($"Linhas: {matrix.GetRows} | Colunas: {matrix.GetColumns}",
+                                AnsiColors.Green);
                             break;
 
                         case 6:
@@ -112,9 +107,7 @@ namespace estrutura_dados.Visualizations
                 {
                     AnsiColors.WriteLine($"Erro: {ex.Message}", AnsiColors.Red);
                 }
-
             } while (option != 0);
         }
     }
 }
-

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace estrutura_dados.Array
+namespace estrutura_dados.Implementations
 {
     public class MatrixImpl<T>
     {
