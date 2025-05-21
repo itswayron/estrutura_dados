@@ -9,16 +9,11 @@ namespace estrutura_dados.Visualizations
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE FILA =======", AnsiColors.Cyan);
             AnsiColors.Write("Digite o tamanho da fila: ", AnsiColors.Blue);
-            if (!int.TryParse(Console.ReadLine(), out int size) || size <= 0)
-            {
-                AnsiColors.WriteLine("Tamanho inválido. Encerrando...", AnsiColors.Red);
-                return;
-            }
+            int size = int.Parse(Console.ReadLine());
 
             QueueImpl<int> queue = new QueueImpl<int>(size);
 
-            int option;
-            do
+            var menuInterface = () =>
             {
                 AnsiColors.WriteLine("======= FILA =======", AnsiColors.Cyan);
                 Console.WriteLine($"{AnsiColors.Green}Fila: {string.Join(" -> ", queue.GetCopy())}{AnsiColors.Reset}");
@@ -31,59 +26,43 @@ namespace estrutura_dados.Visualizations
                     "Limpar fila.",
                     "Imprimir fila.",
                 ]);
+            };
 
-                if (!int.TryParse(Console.ReadLine(), out option))
+            var menuActions = new List<Action>()
+            {
+                () =>
                 {
-                    AnsiColors.WriteLine("Opção inválida!", AnsiColors.Red);
-                    Console.ReadKey();
-                    continue;
-                }
-
-                Console.Clear();
-                try
+                    Console.Write("Digite o número a ser adicionado: ");
+                    var element = int.Parse(Console.ReadLine());
+                    queue.Enqueue(element);
+                },
+                () => { queue.Dequeue(); },
+                () =>
                 {
-                    switch (option)
+                    if (queue.IsEmpty())
                     {
-                        case 0:
-                            AnsiColors.WriteLine("Saindo...", AnsiColors.Red);
-                            break;
-                        case 1:
-                            Console.Write("Digite o número a ser adicionado: ");
-                            var element = int.Parse(Console.ReadLine());
-                            queue.Enqueue(element);
-                            break;
-                        case 2:
-                            queue.Dequeue();
-                            break;
-                        case 3:
-                            if (queue.IsEmpty())
-                            {
-                                AnsiColors.WriteLine("A fila está vazia.", AnsiColors.Red);
-                            }
-                            else
-                            {
-                                AnsiColors.WriteLine("A fila não está vazia.", AnsiColors.Green);
-                            }
-
-                            break;
-                        case 4:
-                            int firstElement = queue.Peek();
-                            AnsiColors.WriteLine($"Primeiro elemento: {firstElement}", AnsiColors.Green);
-                            break;
-                        case 5:
-                            AnsiColors.WriteLine($"Tamanho da fila: {queue.GetSize}", AnsiColors.Green);
-                            break;
-                        case 6:
-                            queue.Clear();
-                            AnsiColors.WriteLine("Fila limpa!", AnsiColors.Green);
-                            break;
+                        AnsiColors.WriteLine("A fila está vazia.", AnsiColors.Red);
                     }
-                }
-                catch (Exception ex)
+                    else
+                    {
+                        AnsiColors.WriteLine("A fila não está vazia.", AnsiColors.Green);
+                    }
+                },
+                () =>
                 {
-                    AnsiColors.WriteLine($"Erro: {ex.Message}", AnsiColors.Red);
+                    int firstElement = queue.Peek();
+                    AnsiColors.WriteLine($"Primeiro elemento: {firstElement}", AnsiColors.Green);
+                },
+                () => { AnsiColors.WriteLine($"Tamanho da fila: {queue.GetSize}", AnsiColors.Green); },
+                () =>
+                {
+                    queue.Clear();
+                    AnsiColors.WriteLine("Fila limpa!", AnsiColors.Green);
                 }
-            } while (option != 0);
+            };
+
+            MenuVisualization.ExecuteMenu(menuActions, menuInterface);
+            Console.Clear();
         }
     }
 }
