@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace estrutura_dados.Implementations
+﻿namespace estrutura_dados.Implementations
 {
     public class MatrixImpl<T>
     {
+        T[,] Elements;
+        int Rows;
+        int Columns;
 
-        private T[,] Elements;
-        private int Rows;
-        private int Columns;
         public MatrixImpl(int rows, int columns)
         {
-            this.Rows = rows;
-            this.Columns = columns;
-            this.Elements = new T[rows, columns];
+            Rows = rows;
+            Columns = columns;
+            Elements = new T[rows, columns];
         }
+
         private void CheckBounds(int row, int column)
         {
             if (row < 0 || row >= Rows || column < 0 || column >= Columns)
                 throw new Exception($"Posição inválida: [{row},{column}]");
         }
+
         public void AddFirstFree(T element)
         {
             for (int i = 0; i < Rows; i++)
@@ -36,6 +32,7 @@ namespace estrutura_dados.Implementations
                     }
                 }
             }
+
             throw new Exception("Matriz cheia. Nenhuma posição livre encontrada.");
         }
 
@@ -44,27 +41,36 @@ namespace estrutura_dados.Implementations
             CheckBounds(row, column);
             Elements[row, column] = value;
         }
+
         public T GetAtIndex(int row, int column)
         {
             CheckBounds(row, column);
             return Elements[row, column];
         }
+
         public int GetRows => Rows;
         public int GetColumns => Columns;
+
         public void Clear()
         {
             Elements = new T[Rows, Columns];
         }
+
         public void Print()
         {
-            Console.WriteLine("Matriz:");
+            AnsiColors.WriteLine("Matriz:", AnsiColors.Cyan);
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    Console.Write($"[{i},{j}] {Elements[i, j]}");
+                    string index = $"[{i},{j}]";
+                    string value = Elements[i, j]?.ToString() ?? "null";
+                    AnsiColors.Write(index, AnsiColors.Yellow);
+                    Console.Write(" ");
+                    AnsiColors.Write(value, AnsiColors.Green);
                     Console.Write("\t");
                 }
+
                 Console.WriteLine();
             }
         }

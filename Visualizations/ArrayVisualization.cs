@@ -8,15 +8,15 @@ namespace estrutura_dados.Visualizations
         {
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE ARRAY =======", AnsiColors.Cyan);
-            AnsiColors.Write("Digite o tamanho do array: ", AnsiColors.Blue);
-            int size = int.Parse(Console.ReadLine());
 
+            int size = MenuCreator.ReadIntInput("Digite o tamanho do array: ");
             var array = new ArrayImpl<int>(size);
 
             var menuInterface = () =>
             {
-                AnsiColors.PrintMenu(
-                [
+                AnsiColors.WriteLine("======= ARRAY =======", AnsiColors.Cyan);
+                Console.WriteLine($"{AnsiColors.Green}Array: {string.Join(" -> ", array.GetCopy())}{AnsiColors.Reset}");
+                AnsiColors.PrintMenu([
                     "Adicionar elemento.",
                     "Remover elemento.",
                     "Obter elemento por índice.",
@@ -25,29 +25,26 @@ namespace estrutura_dados.Visualizations
                     "Obter capacidade.",
                     "Limpar array.",
                     "Imprimir array."
-                ], "MENU DO ARRAY");
+                ]);
             };
 
             var menuActions = new List<Action>()
             {
                 () =>
                 {
-                    AnsiColors.Write("Digite o elemento a ser adicionado: ", AnsiColors.Green);
-                    int element = int.Parse(Console.ReadLine());
+                    int element = MenuCreator.ReadIntInput("Digite o elemento a ser adicionado: ");
                     array.Add(element);
                     AnsiColors.WriteLine("Elemento adicionado com sucesso!");
                 },
                 () =>
                 {
-                    AnsiColors.Write("Digite o índice do elemento a ser removido: ", AnsiColors.Red);
-                    int indexToRemove = int.Parse(Console.ReadLine());
-                    array.Remove(indexToRemove);
+                    int index = MenuCreator.ReadIntInput("Digite o índice do elemento a ser removido: ");
+                    array.Remove(index);
                     AnsiColors.WriteLine("Elemento removido com sucesso!");
                 },
                 () =>
                 {
-                    AnsiColors.Write("Digite o índice: ", AnsiColors.Magenta);
-                    int index = int.Parse(Console.ReadLine());
+                    int index = MenuCreator.ReadIntInput("Digite o índice: ");
                     int value = array.GetAtIndex(index);
                     AnsiColors.WriteLine($"Elemento na posição {index}: {value}");
                 },
@@ -71,7 +68,7 @@ namespace estrutura_dados.Visualizations
                 }
             };
 
-            MenuVisualization.ExecuteMenu(menuActions, menuInterface);
+            MenuCreator.ExecuteMenu(menuActions, menuInterface);
             Console.Clear();
         }
     }

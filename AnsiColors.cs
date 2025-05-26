@@ -49,8 +49,6 @@
             {
                 Console.WriteLine($"{Yellow}{i + 1}.{Reset} {Green}{options[i]}{Reset}");
             }
-
-            Write("Opção: ", Yellow);
         }
     }
 }

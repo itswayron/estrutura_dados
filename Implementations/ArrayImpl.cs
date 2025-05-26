@@ -13,9 +13,9 @@ namespace estrutura_dados.Implementations
         int Capacity;
         public ArrayImpl(int capacity = 10)
         {
-            this.Capacity = capacity;
-            this.Size = 0;
-            this.Elements = new T[capacity];
+            Capacity = capacity;
+            Size = 0;
+            Elements = new T[capacity];
         }
         private void CheckIndex(int index)
         {
@@ -45,7 +45,9 @@ namespace estrutura_dados.Implementations
 
         public T[] GetCopy()
         {
-            return (T[])Elements.Clone();
+            T[] copy = new T[Size];
+            Array.Copy(Elements, copy, Size);
+            return copy;
         }
 
         public T GetAtIndex(int index)

@@ -8,9 +8,8 @@ namespace estrutura_dados.Visualizations
         {
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE FILA =======", AnsiColors.Cyan);
-            AnsiColors.Write("Digite o tamanho da fila: ", AnsiColors.Blue);
-            int size = int.Parse(Console.ReadLine());
-
+            
+            int size = MenuCreator.ReadIntInput("Digite o tamanho da fila: ");
             QueueImpl<int> queue = new QueueImpl<int>(size);
 
             var menuInterface = () =>
@@ -24,7 +23,6 @@ namespace estrutura_dados.Visualizations
                     "Ver primeiro elemento.",
                     "Ver tamanho.",
                     "Limpar fila.",
-                    "Imprimir fila.",
                 ]);
             };
 
@@ -32,8 +30,7 @@ namespace estrutura_dados.Visualizations
             {
                 () =>
                 {
-                    Console.Write("Digite o número a ser adicionado: ");
-                    var element = int.Parse(Console.ReadLine());
+                    var element = MenuCreator.ReadIntInput("Digite o número a ser adicionado: ");
                     queue.Enqueue(element);
                 },
                 () => { queue.Dequeue(); },
@@ -61,7 +58,7 @@ namespace estrutura_dados.Visualizations
                 }
             };
 
-            MenuVisualization.ExecuteMenu(menuActions, menuInterface);
+            MenuCreator.ExecuteMenu(menuActions, menuInterface);
             Console.Clear();
         }
     }

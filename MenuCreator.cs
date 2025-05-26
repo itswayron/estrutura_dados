@@ -1,6 +1,6 @@
 ﻿namespace estrutura_dados;
 
-public static class MenuVisualization
+public static class MenuCreator
 {
     public static void ExecuteMenu(List<Action> actions, Action menu)
     {
@@ -9,7 +9,7 @@ public static class MenuVisualization
             menu.Invoke();
             try
             {
-                int option = int.Parse(Console.ReadLine());
+                int option = ReadIntInput("Opção: ");
                 if (option == 0)
                 {
                     Console.Clear();
@@ -32,5 +32,21 @@ public static class MenuVisualization
                 AnsiColors.WriteLine($"Erro: {ex.Message}", AnsiColors.Red);
             }
         } while (true);
+    }
+
+    public static int ReadIntInput(string prompt = null)
+    {
+        while (true)
+        {
+            AnsiColors.Write(prompt, AnsiColors.Green);
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int result))
+            {
+                return result;
+            }
+            Console.Clear();
+            AnsiColors.WriteLine("Entrada inválida. Por favor, digite um número inteiro.", AnsiColors.Red);
+        }
     }
 }

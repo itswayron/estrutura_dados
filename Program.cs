@@ -1,31 +1,25 @@
 ﻿using estrutura_dados;
 using estrutura_dados.Visualizations;
 
-
-var initialMenuInterface = () =>
+void InitialMenuInterface()
 {
     Console.Clear();
     AnsiColors.PrintMenu([
         "Visualizar Array.",
         "Visualizar Matriz.",
-        "Visualizar Lista.",
+        "Visualizar Fila",
+        "Visualizar Pilha",
+        "Visualizar Lista / Algorítimos de Busca."
     ], "MENU INICIAL");
 };
 
 var initialMenuActions = new List<Action>()
 {
-    () =>
-    {
-        ArrayVisualization.Visualize();
-    },
-    () =>
-    {
-        MatrixVisualization.Visualize();
-    },
-    () =>
-    {
-        QueueVisualization.Visualize();
-    }
+    ArrayVisualization.Visualize,
+    MatrixVisualization.Visualize,
+    QueueVisualization.Visualize,
+    StackVisualization.Visualize,
+    ListVisualization.Visualize,
 };
 
-MenuVisualization.ExecuteMenu(initialMenuActions, initialMenuInterface);
+MenuCreator.ExecuteMenu(initialMenuActions, InitialMenuInterface);

@@ -8,16 +8,16 @@ namespace estrutura_dados.Visualizations
         {
             Console.Clear();
             AnsiColors.WriteLine("======= VISUALIZAÇÃO DE MATRIZ =======", AnsiColors.Cyan);
-            
-            AnsiColors.Write("Digite o número de linhas: ", AnsiColors.Blue);
-            int rows = int.Parse(Console.ReadLine());
-            AnsiColors.Write("Digite o número de colunas: ", AnsiColors.Blue);
-            int cols = int.Parse(Console.ReadLine());
+
+            int rows = MenuCreator.ReadIntInput("Digite o número de linhas: ");
+            int cols = MenuCreator.ReadIntInput("Digite o número de colunas: ");
 
             var matrix = new MatrixImpl<int>(rows, cols);
 
             var menuInterface = () =>
             {
+                AnsiColors.WriteLine("======= MATRIZ =======", AnsiColors.Cyan);
+                matrix.Print();
                 AnsiColors.PrintMenu([
                     "Inserir elemento.",
                     "Inserir elemento na posição.",
@@ -25,35 +25,29 @@ namespace estrutura_dados.Visualizations
                     "Limpar matriz.",
                     "Obter número de linhas/colunas.",
                     "Imprimir matriz."
-                ], "MENU DA MATRIZ");
+                ]);
             };
 
             var menuActions = new List<Action>()
             {
                 () =>
                 {
-                    AnsiColors.Write("Valor: ", AnsiColors.Green);
-                    int newVal = int.Parse(Console.ReadLine());
+                    int newVal = MenuCreator.ReadIntInput("Valor: ");
                     matrix.AddFirstFree(newVal);
                     AnsiColors.WriteLine("Elemento adicionado na primeira posição livre!");
                 },
                 () =>
                 {
-                    AnsiColors.Write("Linha: ", AnsiColors.Green);
-                    int row = int.Parse(Console.ReadLine());
-                    AnsiColors.Write("Coluna: ", AnsiColors.Green);
-                    int col = int.Parse(Console.ReadLine());
-                    AnsiColors.Write("Valor: ", AnsiColors.Green);
-                    int value = int.Parse(Console.ReadLine());
+                    int row = MenuCreator.ReadIntInput("Linha: ");
+                    int col = MenuCreator.ReadIntInput("Coluna: ");
+                    int value = MenuCreator.ReadIntInput("Valor: ");
                     matrix.SetAtIndex(row, col, value);
                     AnsiColors.WriteLine("Elemento inserido com sucesso!");
                 },
                 () =>
                 {
-                    AnsiColors.Write("Linha: ", AnsiColors.Magenta);
-                    int r = int.Parse(Console.ReadLine());
-                    AnsiColors.Write("Coluna: ", AnsiColors.Magenta);
-                    int c = int.Parse(Console.ReadLine());
+                    int r = MenuCreator.ReadIntInput("Linha: ");
+                    int c = MenuCreator.ReadIntInput("Coluna: ");
                     int element = matrix.GetAtIndex(r, c);
                     AnsiColors.WriteLine($"Valor em [{r},{c}] = {element}");
                 },
@@ -74,7 +68,7 @@ namespace estrutura_dados.Visualizations
                 }
             };
 
-            MenuVisualization.ExecuteMenu(menuActions, menuInterface);
+            MenuCreator.ExecuteMenu(menuActions, menuInterface);
             Console.Clear();
         }
     }
