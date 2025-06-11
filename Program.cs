@@ -9,7 +9,8 @@ void InitialMenuInterface()
         "Visualizar Matriz.",
         "Visualizar Fila",
         "Visualizar Pilha",
-        "Visualizar Lista / Algorítimos de Busca."
+        "Visualizar Lista / Algorítimos de Busca e ordenação.",
+        "Visualizar Hash Table."
     ], "MENU INICIAL");
 };
 
@@ -20,6 +21,7 @@ var initialMenuActions = new List<Action>()
     QueueVisualization.Visualize,
     StackVisualization.Visualize,
     ListVisualization.Visualize,
+    HashTableVisualization.Visualize,
 };
 
 MenuCreator.ExecuteMenu(initialMenuActions, InitialMenuInterface);

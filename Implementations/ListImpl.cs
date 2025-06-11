@@ -1,4 +1,6 @@
-﻿namespace estrutura_dados.Implementations;
+﻿using System.Diagnostics;
+
+namespace estrutura_dados.Implementations;
 
 public class ListImpl<T> where T : IComparable<T>
 {
@@ -63,7 +65,6 @@ public class ListImpl<T> where T : IComparable<T>
         Size = 0;
     }
 
-
     public void Sort()
     {
         Array.Sort(Elements, 0, Size);
@@ -114,4 +115,31 @@ public class ListImpl<T> where T : IComparable<T>
 
         return (-1, steps);
     }
+
+    public (int comparisons, int changes, long time) BubbleSort()
+    {
+        Stopwatch sw = new();
+        sw.Start();
+        int comparisons = 0;
+        int changes = 0;
+        for (int i = 0; i < Size - 1; i++)
+        {
+            for (int j = 0; j < Size - 1 - i; j++)
+            {
+                comparisons++;
+                if (Elements[j].CompareTo(Elements[j + 1]) > 0)
+                {
+                    T temp = Elements[j];
+                    Elements[j] = Elements[j + 1];
+                    Elements[j + 1] = temp;
+                    changes++;
+                }
+            }
+        }
+        sw.Stop();
+        long time = sw.ElapsedMilliseconds;
+
+        return (comparisons, changes, time);
+    }
+
 }
